@@ -1,0 +1,46 @@
+/****** Script for SelectTopNRows command from SSMS  ******/
+SELECT 
+	   p.[ProductKey]
+      ,p.[ProductAlternateKey] as [Product Item Code]
+      --,[ProductSubcategoryKey]
+      --,[WeightUnitMeasureCode]
+      --,[SizeUnitMeasureCode]
+      ,p.[EnglishProductName] as [Product Name]
+	  ,ps.EnglishProductSubcategoryName as [Sub Category]
+	  ,PC.EnglishProductCategoryName as [Product Category]
+      --,[SpanishProductName]
+      --,[FrenchProductName]
+      --,[StandardCost]
+      --,[FinishedGoodsFlag]
+      ,p.[Color] as [Product Color]
+      --,[SafetyStockLevel]
+      --,[ReorderPoint]
+      --,[ListPrice]
+      ,p.[Size] AS [Product Size]
+      --,[SizeRange]
+      --,[Weight]
+      --,[DaysToManufacture]
+      ,p.[ProductLine] AS [Product Line]
+      --,[DealerPrice]
+      --,[Class]
+      --,[Style]
+      ,p.[ModelName] AS [Product Model]
+      --,[LargePhoto]
+      ,p.[EnglishDescription] As [Product Description]
+      --,[FrenchDescription]
+      --,[ChineseDescription]
+      --,[ArabicDescription]
+      --,[HebrewDescription]
+      --,[ThaiDescription]
+      --,[GermanDescription]
+      --,[JapaneseDescription]
+      --,[TurkishDescription]
+      --,[StartDate]
+      --,[EndDate]
+      ,ISNULL (p.[Status],'Outdated') as [Product Status]
+  FROM [AdventureWorksDW2019].[dbo].[DimProduct] as P
+  JOIN [AdventureWorksDW2019].[dbo].[DimProductSubcategory] as PS
+  ON P.ProductSubcategoryKey = PS.ProductSubcategoryKey
+  LEFT JOIN [AdventureWorksDW2019].[dbo].[DimProductCategory] as PC
+  ON PS.ProductCategoryKey = PC.ProductCategoryKey
+  Order by P.ProductKey ASC;
